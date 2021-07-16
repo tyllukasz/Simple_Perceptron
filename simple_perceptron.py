@@ -19,7 +19,7 @@ output_vector = [0,1,1,0]
 training_output = np.array(output_vector).transpose()
 
 #random synapses weights initialization
-np.random.seed(1)
+#np.random.seed(1)
 synapses_weights = 2 * np.random.rand(3) - 1
 
 print('Initial synapses weights: ')
@@ -29,19 +29,33 @@ print('------------------')
 # print(training_input)
 # print(training_output)
 
+#initial average error
+max_error = [1,1,1,1]
+max_error = np.max(np.array(max_error))
+my_iterator = 0
+
+while max_error > 0.1:
+
 #learning process
-for i in range(10):
+#for i in range(1):
 
     output = sigmoid(np.matmul(training_input,synapses_weights)) #values returned from the activation function
 
     iteration_err = output_vector - output #error in the current iteration
+    # error = expected output value - actual output
 
     adjustment = iteration_err * sigmoid_der(output) #adjustmen values for synapes weights
+    # adjustment coef = error * sigmoid derivative(x1,x2,x3,w1,w2,w3)
 
     synapses_weights += np.matmul(training_input.T, adjustment) #synapses weights update
-    #w1 = w1 + (x11*a + x12*a + x13*a + x14*a)
-    #w2 = w2 + (x21*a + x22*a + x23*a + x24*a)
-    #w3 = w3 + (x31*a + x32*a + x33*a + x34*a)
+    # xij - i element from j set
+    # w1 = w1 + (x11*a1 + x12*a2 + x13*a3 + x14*a4)
+    # w2 = w2 + (x21*a1 + x22*a2 + x23*a3 + x24*a4)
+    # w3 = w3 + (x31*a1 + x32*a2 + x33*a3 + x34*a4)
+
+    #average error
+    max_error = np.max(np.absolute(np.array(iteration_err)))
+    my_iterator += 1
 
 
 print('Output:')
@@ -52,3 +66,6 @@ print(iteration_err)
 print('------------------')
 print('Synapses weights after learning process:')
 print(synapses_weights)
+print('------------------')
+print('Number of iterations = ' + str(my_iterator))
+
