@@ -39,6 +39,10 @@ for i in range(10):
     adjustment = iteration_err * sigmoid_der(output) #adjustmen values for synapes weights
 
     synapses_weights += np.matmul(training_input.T, adjustment) #synapses weights update
+    #w1 = w1 + (x11*a + x12*a + x13*a + x14*a)
+    #w2 = w2 + (x21*a + x22*a + x23*a + x24*a)
+    #w3 = w3 + (x31*a + x32*a + x33*a + x34*a)
+
 
 print('Output:')
 print(output)
@@ -46,3 +50,5 @@ print('------------------')
 print('Error after last iteration:')
 print(iteration_err)
 print('------------------')
+print('Synapses weights after learning process:')
+print(synapses_weights)
